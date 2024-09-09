@@ -3,14 +3,16 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK,HTTP_500_INTERNAL_SERVER_ERROR
 # Create your views here.
+from dotenv import load_dotenv
+import os
 
-
+load_dotenv()
 #PRUEBAS PARA FLASHCARDS
 
 from groq import Groq
 
 client = Groq(
-    api_key='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'
+    api_key=os.getenv('grok_api_key')
 )
 
 @api_view(['POST'])
@@ -59,7 +61,7 @@ def CorreccionFrase(request):
         {
             "role": "user",
             "content": f"""Corrigeme la siguiente frase en aleman : {Frase} que contiene la palabra {Palabra}. Si la frase es correcta solo dime Correcto! pero si es incorrecta dime una 
-            correccion pequeña de la frase. Sin la traduccion de la frase""",
+            correccion pequeña de la frase. Sin la traduccion de la frase. Con la siguiente estructura= si contesto la frase bien escribe ->Correcto , si contesto la frase mal escribe. La frase Correcta es->>: frase correcta""",
         }
     ],
     model="llama-3.1-70b-versatile",
@@ -88,8 +90,7 @@ def CorreccionFrase(request):
 
 import openai 
 
-openai.api_key="sk-HRe12vpchL6rsJfNKPkYzJV_zTW4jWuCCFPWGTesHnT3BlbkFJjixbn6rYS-c5QLZI6vGdG55XOzJ6tvozD5NL-f5r8A"
-
+openai.api_key=os.getenv('chatgpt_key')
 
 @api_view(['POST'])
 def Askgpt(request):
@@ -111,8 +112,8 @@ def Askgpt(request):
 
 import azure.cognitiveservices.speech as speech
 
-api_key='66c880c02f3d44658e02008645afa90c'
-region='eastus'
+api_key=os.getenv('azure_api_key')
+region=os.getenv('region_azure')
 
 @api_view(['POST'])
 def listen(request):
