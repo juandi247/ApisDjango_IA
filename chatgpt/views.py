@@ -88,22 +88,6 @@ def CorreccionFrase(request):
 
 #PRUEBA OPEN AI
 
-import openai 
-
-openai.api_key=os.getenv('chatgpt_key')
-
-@api_view(['POST'])
-def Askgpt(request):
-
-    Palabra=request.data.get('palabra','')
-    frase=request.data.get('frase','')
-    completion=openai.Completion.create(engine='gpt-3.5-turbo',promt=f"Corrigeme la frase que escribire en aleman que tiene la siguiente palabra {Palabra}: {frase}", max_tokens=300)
-    respuesta={'text':completion.choices[0].text.strip()}
-    
-    return Response(respuesta,status=HTTP_200_OK)
-
-
-
 
 
 
