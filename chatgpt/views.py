@@ -99,6 +99,7 @@ import azure.cognitiveservices.speech as speech
 api_key=os.getenv('azure_api_key')
 region=os.getenv('region_azure')
 
+#uguauu
 @api_view(['POST'])
 def listen(request):
     Palabra = request.data.get('palabra', '')
